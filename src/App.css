@@ -146,6 +146,8 @@
 
 .prank {
   animation: shake 0.5s ease-in;
+  background: red !important;
+  color: white;
 }
 
 @keyframes shake {

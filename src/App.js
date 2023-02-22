@@ -1,13 +1,17 @@
 import { useState } from "react";
 import "./App.css";
 import { BtnComp } from "./BtnComp";
+import abcd from "./asset/abcd.mp3";
 
 const operator = ["+", "-", "*", "/", "%"];
 function App() {
   const [str, setStr] = useState("");
   const [lastOperator, setLastOperator] = useState("");
 
+  const [isPrank, setIsPrank] = useState(false);
+
   const setRealTimeDisplay = (val) => {
+    isPrank && setIsPrank(false);
     if (val === "AC") {
       setStr("");
       return;
@@ -67,6 +71,9 @@ function App() {
     const extra = randomNumber();
 
     if (extra) {
+      setIsPrank(true);
+      music();
+
       // displayElm.style.background = "red";
       // displayElm.style.color = "white";
       // displayElm.classList.add("prank");
@@ -83,8 +90,13 @@ function App() {
     return num <= 3 ? num : 0;
   };
 
+  const music = () => {
+    const audio = new Audio(abcd);
+    audio.play();
+  };
+
   const btns = [
-    { label: str || "0.00", cls: "display" },
+    { label: str || "0.00", cls: isPrank ? "display prank" : "display" },
     { label: "AC", cls: "btn btn-ac" },
     { label: "C", cls: "btn btn-c" },
     { label: "%", cls: "btn btn-perc" },
